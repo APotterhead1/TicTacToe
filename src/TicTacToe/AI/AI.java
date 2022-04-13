@@ -66,6 +66,5 @@ public class AI {
 
         if( map.containsKey( board ));
 
-        System.out.println(map.containsKey( board ));
     }
 }

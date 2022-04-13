@@ -40,7 +40,7 @@ public class Board implements Comparable {
 
     public int compareTo(Object o) {
 
-        if( !(o instanceof Board)) return 1;
+        Board b = (Board) o;
 
         for( int i = 0; i < board.length; i++ ) {
             for( int j = 0; j < board[i].length; j++ ) {
