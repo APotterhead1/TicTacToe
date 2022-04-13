@@ -8,25 +8,27 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-import TicTacToe.*;
+import TicTacToe.Board;
 
 public class AI {
 
-    public Map<Board, Map<Integer, Double>> map;
+    public Map<Board, Map<Integer, Integer>> map;
+
 
     public AI() {
 
         try {
             File file = new File("ai.dat");
-            file.createNewFile();
 
             Scanner scanner = new Scanner( file );
 
+            map = new TreeMap<Board, Map<Integer, Integer>>();
+
             while( scanner.hasNext() ) {
 
-                double[] chances = new double[9];
+                int[] chances = new int[9];
 
-                for( int i = 0; i < chances.length; i++ ) chances[i] = scanner.nextDouble();
+                for( int i = 0; i < chances.length; i++ ) chances[i] = scanner.nextInt();
 
                 String str = scanner.nextLine();
 
@@ -43,7 +45,7 @@ public class AI {
                     }
                 }
 
-                Map<Integer, Double> map1 = new TreeMap<Integer, Double>();
+                Map<Integer, Integer> map1 = new TreeMap<Integer, Integer>();
 
                 for( int i = 0; i < chances.length; i++ ) map1.put( i + 1, chances[ i ] );
 
@@ -58,5 +60,12 @@ public class AI {
         if( success == 0 ) return;
         if( success == 1 );
         if( success == -1 );
+    }
+
+    public void play( Board board ) {
+
+        if( map.containsKey( board ));
+
+        System.out.println(map.containsKey( board ));
     }
 }
