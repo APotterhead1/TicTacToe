@@ -6,11 +6,13 @@ import java.io.BufferedWriter;
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.Map;
+import java.util.TreeMap;
+
 import TicTacToe.*;
 
 public class AI {
 
-    public Map<Board, Double> map;
+    public Map<Board, Map<Integer, Double>> map;
 
     public AI() {
 
@@ -22,7 +24,9 @@ public class AI {
 
             while( scanner.hasNext() ) {
 
-                double chance = scanner.nextDouble();
+                double[] chances = new double[9];
+
+                for( int i = 0; i < chances.length; i++ ) chances[i] = scanner.nextDouble();
 
                 String str = scanner.nextLine();
 
@@ -30,15 +34,20 @@ public class AI {
 
                 Board board = new Board();
 
-                int spacesLength
+                int index = 0;
 
                 for( int i = 0; i < board.board.length; i++ ) {
-
                     for( int j = 0; j < board.board[i].length; j++ ) {
-                        if( board.board[i][j] =
+
+                        board.board[i][j].value = spaces[index].charAt( 0 );
                     }
                 }
 
+                Map<Integer, Double> map1 = new TreeMap<Integer, Double>();
+
+                for( int i = 0; i < chances.length; i++ ) map1.put( i + 1, chances[ i ] );
+
+                map.put( board, map1 );
             }
 
         } catch( IOException e ) {}
