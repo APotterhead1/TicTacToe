@@ -42,8 +42,6 @@ public class Board implements Comparable {
 
         Board b = (Board) o;
 
-        Board b = (Board) o;
-
         for( int i = 0; i < board.length; i++ ) {
             for( int j = 0; j < board[i].length; j++ ) {
                 if( board[i][j].value != b.board[i][j].value ) return 1;
