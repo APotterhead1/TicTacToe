@@ -7,13 +7,14 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
-
+import java.util.Set;
+import java.util.ArrayList;
 import TicTacToe.Board;
 
 public class AI {
 
     public Map<Board, Map<Integer, Integer>> map;
-
+    public ArrayList<Move> moves;
 
     public AI() {
 
@@ -53,6 +54,8 @@ public class AI {
             }
 
         } catch( IOException e ) {}
+
+        moves = new ArrayList<Move>();
     }
 
     public void train( int success ) {
@@ -64,6 +67,38 @@ public class AI {
 
     public void play( Board board ) {
 
-        
+        if( !map.containsKey( board ) ) {
+
+            Map<Integer, Integer> map1 = new TreeMap<Integer, Integer>();
+            for( int i = 1; i < 10; i++ ) map1.put( i, 500 );
+
+            map.put( board, map1 );
+
+            moves.add( new Move( board, (int) ( Math.random() * 9 + 1 ) ) );
+
+            runMove();
+
+            return;
+        }
+
+        Map chances = map.get( board );
+
+        Set keySet = map.keySet();
+
+        ArrayList<Move> list = new ArrayList<Move>();
+
+        for( Object o : keySet ) {
+
+            int space = (int) o;
+
+            for( int i = 0; i < (int) chances.get( space ); i++ )
+                list.add( new Move( board, space ) );
+        }
+
+        int rand = ( int ) ( Math.random() * list.size() );
+
+        moves.add( list.get( rand ) );
+
+        runMove();
     }
 }
