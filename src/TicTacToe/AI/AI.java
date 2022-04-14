@@ -83,22 +83,65 @@ public class AI {
 
         Map chances = map.get( board );
 
-        Set keySet = map.keySet();
+        Set chancesKeySet = map.keySet();
 
-        ArrayList<Move> list = new ArrayList<Move>();
+        int total = 0;
 
-        for( Object o : keySet ) {
+        Map<Integer, ArrayList<Move>> map2 = new TreeMap<Integer, ArrayList<Move>>();
 
-            int space = (int) o;
+        for( Object o : chancesKeySet ) {
 
-            for( int i = 0; i < (int) chances.get( space ); i++ )
-                list.add( new Move( board, space ) );
+            int num = (int) o;
+
+            if( map2.containsKey( chances.get( num ) ) ) {
+
+                map2.get( chances.get( num ) ).add( new Move( board, num ) );
+
+            } else {
+
+                ArrayList<Move> list = new ArrayList<Move>();
+
+                list.add( new Move( board, num ) );
+
+                map2.put( (Integer) chances.get( num ), list );
+
+                total += (int) chances.get( num );
+            }
         }
 
-        int rand = ( int ) ( Math.random() * list.size() );
+        int rand = (int) ( Math.random() * total + 1 );
 
-        moves.add( list.get( rand ) );
+        Set map2KeySet = map2.keySet();
+
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        for( Object o : map2KeySet ) {
+
+            int chance = (int) o;
+
+            list.add( 0, chance );
+        }
+
+        for( int i = 0; i < list.size(); i++ ) {
+
+            total -= list.get( 0 );
+
+            if( rand > total ) {
+
+                moves.add( map2.get( list.get( 0 ) ).get( (int) (Math.random() * map2.get( list.get( 0 ) ).size() ) ) );
+                break;
+            }
+
+            list.remove( 0 );
+        }
 
         runMove();
+    }
+
+    public void runMove() {
+
+        Move move = moves.get( moves.size() - 1 );
+
+
     }
 }
