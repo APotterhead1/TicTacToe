@@ -64,7 +64,6 @@ public class AI {
 
     public void play( Board board ) {
 
-        if( map.containsKey( board ));
-
+        
     }
 }
