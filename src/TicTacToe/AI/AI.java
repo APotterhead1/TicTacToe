@@ -42,7 +42,8 @@ public class AI {
                 for( int i = 0; i < board.board.length; i++ ) {
                     for( int j = 0; j < board.board[i].length; j++ ) {
 
-                        board.board[i][j].value = spaces[index].charAt( 0 );
+                        if( spaces[index].charAt( 0 ) == '_' ) board.board[i][j].value = ' ';
+                        else board.board[i][j].value = spaces[index].charAt( 0 );
                     }
                 }
 
@@ -65,20 +66,18 @@ public class AI {
         if( success == -1 );
     }
 
-    public void play( Board board ) {
+    public Board play( Board board ) {
 
         if( !map.containsKey( board ) ) {
 
             Map<Integer, Integer> map1 = new TreeMap<Integer, Integer>();
-            for( int i = 1; i < 10; i++ ) map1.put( i, 500 );
+            for( int i = 0; i < 9; i++ ) map1.put( i, 500 );
 
             map.put( board, map1 );
 
-            moves.add( new Move( board, (int) ( Math.random() * 9 + 1 ) ) );
+            moves.add( new Move( board, (int) ( Math.random() * 9 ) ) );
 
-            runMove();
-
-            return;
+            return runMove();
         }
 
         Map chances = map.get( board );
@@ -135,13 +134,23 @@ public class AI {
             list.remove( 0 );
         }
 
-        runMove();
+        return runMove();
     }
 
-    public void runMove() {
+    public Board runMove() {
 
         Move move = moves.get( moves.size() - 1 );
 
+        int num2 = move.space % 3;
+        int num1 = move.space - num2 * 3;
 
+        if( move.board.board[ num1 ][ num2 ].value != ' ' ) {
+            map.get( move.board ).put( move.space, 0 );
+            play( move.board );
+        }
+
+        move.board.board[ num1 ][ num2 ].makeO();
+
+        return move.board;
     }
 }
