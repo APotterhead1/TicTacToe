@@ -35,6 +35,6 @@ public class Game {
 
     public void RunAI() {
 
-
+        board = ai.play( board );
     }
 }
