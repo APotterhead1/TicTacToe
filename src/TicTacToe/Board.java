@@ -13,19 +13,29 @@ public class Board implements Comparable {
     public int checkIfGameOver() {
 
         for( int i = 0; i < board.length; i++ )
-            if( board[i][0].value == board[i][1].value && board[i][0].value == board[i][2].value ) {
-                if (board[i][0].value == '0') return 1;
-                else return -1;
+            if( board[i][0].value == board[i][1].value && board[i][0].value == board[i][2].value && board[i][0].value != ' ' ) {
+                if (board[i][0].value == 'O') return 1;
+                return -1;
             }
 
         for( int i = 0; i < board.length; i++ )
-            if( board[0][i].value == board[1][i].value && board[0][i].value == board[2][i].value ) {
-                if (board[i][0].value == '0') return 1;
-                else return -1;
+            if( board[0][i].value == board[1][i].value && board[0][i].value == board[2][i].value && board[0][i].value != ' ' ) {
+                if (board[0][i].value == 'O') return 1;
+                return -1;
             }
 
+        if( board[0][0].value == board[1][1].value && board[0][0].value == board[2][2].value && board[0][0].value != ' ' ) {
+            if( board[0][0].value == 'O') return 1;
+            return -1;
+        }
+
+        if( board[0][2].value == board[1][1].value && board[0][2].value == board[2][0].value && board[0][2].value != ' ' ) {
+            if( board[0][2].value == 'O' ) return 1;
+            return -1;
+        }
+
         for( int i = 0; i < board.length; i++ )
-            for( int j = 0; j < board.length; j++ )
+            for( int j = 0; j < board[ i ].length; j++ )
                 if( board[i][j].value == ' ' ) return 2;
         return 0;
     }

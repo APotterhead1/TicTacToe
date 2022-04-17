@@ -82,7 +82,7 @@ public class AI {
 
         Map chances = map.get( board );
 
-        Set chancesKeySet = map.keySet();
+        Set chancesKeySet = chances.keySet();
 
         int total = 0;
 
@@ -141,16 +141,15 @@ public class AI {
 
         Move move = moves.get( moves.size() - 1 );
 
+        int num1 = move.space / 3;
         int num2 = move.space % 3;
-        int num1 = move.space - num2 * 3;
 
         if( move.board.board[ num1 ][ num2 ].value != ' ' ) {
             map.get( move.board ).put( move.space, 0 );
             play( move.board );
+        } else {
+            move.board.board[ num1 ][ num2 ].makeO();
         }
-
-        move.board.board[ num1 ][ num2 ].makeO();
-
         return move.board;
     }
 }

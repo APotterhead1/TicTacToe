@@ -14,10 +14,10 @@ public class Game {
 
         board = new Board();
         ai = new AI();
-        CurrentPlayer( playerNum );
+        currentPlayer( playerNum );
     }
 
-    public void CurrentPlayer( int turn ) {
+    public void currentPlayer( int turn ) {
 
         if( turn == 1 ) RunPlayer();
         else RunAI();
@@ -25,11 +25,28 @@ public class Game {
         int num = board.checkIfGameOver();
 
         if( num == 2 ) {
-            if( turn == 1 ) CurrentPlayer( 2 );
-            else CurrentPlayer( 1 );
+            if( turn == 1 ) currentPlayer( 2 );
+            else currentPlayer( 1 );
         } else {
+            blankLines();
+            line();
+            System.out.println();
+            if( num == -1 ) System.out.println("You Won, Congratulations!");
+            if( num == 1 ) System.out.println( "You Lost, Sorry" );
+            if( num == 0 ) System.out.println( "It Was A Tie" );
+            System.out.println();
+            System.out.println( board );
+            System.out.println();
+            System.out.println( "Press ENTER To Continue" );
+            System.out.println();
+            line();
+            Scanner kb = new Scanner( System.in );
+            kb.nextLine();
 
             ai.train( num );
+
+            board = new Board();
+            currentPlayer( 2 );
         }
     }
 
@@ -150,8 +167,8 @@ public class Game {
 
     public boolean isLegal( int position ) {
 
+        int num1 = ( position - 1 ) / 3;
         int num2 = ( position - 1 ) % 3;
-        int num1 = ( position - 1 ) - num2 * 3;
 
         return board.board[num1][num2].value == ' ';
     }
