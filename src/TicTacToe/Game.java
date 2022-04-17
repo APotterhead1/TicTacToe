@@ -30,11 +30,14 @@ public class Game {
 
     public void RunPlayer() {
 
-
+        System.out.println();
     }
 
     public void RunAI() {
 
         board = ai.play( board );
     }
+
+    public void blankLines() { for( int i = 0; i < 100; i++ ) System.out.println(); }
+    public void line() { for( int i = 0; i < 100; i++ ) System.out.print( '#' ); System.out.println(); }
 }
