@@ -62,8 +62,13 @@ public class AI {
     public void train( int success ) {
 
         if( success == 0 ) return;
-        if( success == 1 );
-        if( success == -1 );
+        if( success == 1 ) {
+
+
+        }
+        if( success == -1 ) {
+            //y=2^{\frac{x}{500}}-1
+        }
     }
 
     public Board play( Board board ) {
