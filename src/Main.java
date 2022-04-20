@@ -1,7 +1,4 @@
-import TicTacToe.*;
-import TicTacToe.AI.*;
-import java.util.Map;
-import java.util.HashMap;
+import TicTacToe.Game;
 
 public class Main {
     public static void main(String[] args) {
