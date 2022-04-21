@@ -1,8 +1,6 @@
 package TicTacToe.AI;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.Map;
@@ -39,11 +37,11 @@ public class AI {
 
                 int index = 0;
 
-                for( int i = 0; i < board.board.length; i++ ) {
-                    for( int j = 0; j < board.board[i].length; j++ ) {
+                for(int i = 0; i < board.board04.length; i++ ) {
+                    for(int j = 0; j < board.board04[i].length; j++ ) {
 
-                        if( spaces[index].charAt( 0 ) == '_' ) board.board[i][j].value = ' ';
-                        else board.board[i][j].value = spaces[index].charAt( 0 );
+                        if( spaces[index].charAt( 0 ) == '_' ) board.board04[i][j].value = ' ';
+                        else board.board04[i][j].value = spaces[index].charAt( 0 );
                     }
                 }
 
@@ -61,12 +59,24 @@ public class AI {
 
     public void train( int success ) {
 
+        Set mapKeySet = map.keySet();
+
+        System.out.println( map.size() );
+        System.out.println( moves.size() );
+
+        for( int i = 0; i < moves.size(); i++ ) System.out.println( moves.get( i ));
+
+        for( Object o : mapKeySet ) {
+
+            System.out.println( o );
+        }
+
         if( success == 0 ) return;
         if( success == 1 ) {
 
             for( int i = 0; i < moves.size(); i++ ) {
 
-                int chance = map.get( moves.get( i ).board ).get( moves.get( i ).space );
+                int chance = (int) ( map.get( moves.get( i ).board02).get( moves.get( i ).space ) );
 
                 int num1 = chance / moves.size();
 
@@ -74,14 +84,16 @@ public class AI {
 
                 map2.put( moves.get( i ).space, chance + chance / (moves.size() + 1) * ( i + 1 ) );
 
-                map.put( moves.get( i ).board , map2 );
+                map.put( moves.get( i ).board02, map2 );
             }
         }
         if( success == -1 ) {
 
             for( int i = 0; i < moves.size(); i++ ) {
 
-                int chance = map.get( moves.get( i ).board ).get( moves.get( i ).space );
+                System.out.println( "test" );
+
+                int chance = (int) ( map.get( moves.get( i ).board02).get( moves.get( i ).space ) );
 
                 int num1 = chance / moves.size();
 
@@ -89,26 +101,29 @@ public class AI {
 
                 map2.put( moves.get( i ).space, chance - chance / (moves.size() + 1) * ( i + 1 ) );
 
-                map.put( moves.get( i ).board , map2 );
+                map.put( moves.get( i ).board02, map2 );
             }
         }
+
+        moves = new ArrayList< Move >();
     }
 
-    public Board play( Board board ) {
+    public Board play( Board board01 ) {
 
-        if( !map.containsKey( board ) ) {
+        if( !map.containsKey( board01 ) ) {
 
             Map<Integer, Integer> map1 = new TreeMap<Integer, Integer>();
             for( int i = 0; i < 9; i++ ) map1.put( i, 500 );
 
-            map.put( board, map1 );
+            System.out.println( board01 );
+            map.put( new Board( board01 ), map1 );
 
-            moves.add( new Move( board, (int) ( Math.random() * 9 ) ) );
+            moves.add( new Move( new Board( board01 ), (int) ( Math.random() * 9 ) ) );
 
             return runMove();
         }
 
-        Map chances = map.get( board );
+        Map chances = map.get( board01 );
 
         Set chancesKeySet = chances.keySet();
 
@@ -122,13 +137,13 @@ public class AI {
 
             if( map2.containsKey( chances.get( num ) ) ) {
 
-                map2.get( chances.get( num ) ).add( new Move( board, num ) );
+                map2.get( chances.get( num ) ).add( new Move( board01, num ) );
 
             } else {
 
                 ArrayList<Move> list = new ArrayList<Move>();
 
-                list.add( new Move( board, num ) );
+                list.add( new Move( new Board( board01 ), num ) );
 
                 map2.put( (Integer) chances.get( num ), list );
 
@@ -172,12 +187,12 @@ public class AI {
         int num1 = move.space / 3;
         int num2 = move.space % 3;
 
-        if( move.board.board[ num1 ][ num2 ].value != ' ' ) {
-            map.get( move.board ).put( move.space, 0 );
-            play( move.board );
+        if( move.board02.board04[ num1 ][ num2 ].value != ' ' ) {
+            map.get( move.board02).put( move.space, 0 );
+            play( move.board02);
         } else {
-            move.board.board[ num1 ][ num2 ].makeO();
+            move.board02.board04[ num1 ][ num2 ].makeO();
         }
-        return move.board;
+        return move.board02;
     }
 }
