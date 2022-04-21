@@ -108,7 +108,9 @@ public class AI {
         moves = new ArrayList< Move >();
     }
 
-    public Board play( Board board01 ) {
+    public Board play( Board board05 ) {
+
+        Board board01 = new Board( board05 );
 
         if( !map.containsKey( board01 ) ) {
 
