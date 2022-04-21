@@ -64,10 +64,33 @@ public class AI {
         if( success == 0 ) return;
         if( success == 1 ) {
 
+            for( int i = 0; i < moves.size(); i++ ) {
 
+                int chance = map.get( moves.get( i ).board ).get( moves.get( i ).space );
+
+                int num1 = chance / moves.size();
+
+                Map<Integer, Integer> map2 = new TreeMap<Integer, Integer>();
+
+                map2.put( moves.get( i ).space, chance + chance / (moves.size() + 1) * ( i + 1 ) );
+
+                map.put( moves.get( i ).board , map2 );
+            }
         }
         if( success == -1 ) {
-            //y=2^{\frac{x}{500}}-1
+
+            for( int i = 0; i < moves.size(); i++ ) {
+
+                int chance = map.get( moves.get( i ).board ).get( moves.get( i ).space );
+
+                int num1 = chance / moves.size();
+
+                Map<Integer, Integer> map2 = new TreeMap<Integer, Integer>();
+
+                map2.put( moves.get( i ).space, chance - chance / (moves.size() + 1) * ( i + 1 ) );
+
+                map.put( moves.get( i ).board , map2 );
+            }
         }
     }
 
