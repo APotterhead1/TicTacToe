@@ -189,12 +189,15 @@ public class AI {
         int num1 = move.space / 3;
         int num2 = move.space % 3;
 
+        Board b = new Board();
+
         if( move.board02.board04[ num1 ][ num2 ].value != ' ' ) {
             map.get( move.board02).put( move.space, 0 );
             play( move.board02);
         } else {
-            move.board02.board04[ num1 ][ num2 ].makeO();
+            b = new Board( move.board02 );
+            b.board04[ num1 ][ num2 ].makeO();
         }
-        return move.board02;
+        return b;
     }
 }

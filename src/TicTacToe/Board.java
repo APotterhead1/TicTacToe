@@ -15,7 +15,7 @@ public class Board implements Comparable {
         for( int i = 0; i < 3; i++ ) {
             for( int j = 0; j < 3; j++ ) {
 
-                board04[i][j] = oldBoard.board04[i][j];
+                board04[i][j] = new Space(oldBoard.board04[i][j].value);
             }
         }
     }
