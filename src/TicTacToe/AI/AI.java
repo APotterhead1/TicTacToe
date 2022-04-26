@@ -189,7 +189,7 @@ public class AI {
         int num1 = move.space / 3;
         int num2 = move.space % 3;
 
-        Board b = new Board();
+        Board b = move.board02;
 
         if( move.board02.board04[ num1 ][ num2 ].value != ' ' ) {
             map.get( move.board02).put( move.space, 0 );
