@@ -59,18 +59,6 @@ public class AI {
 
     public void train( int success ) {
 
-        Set mapKeySet = map.keySet();
-
-        System.out.println( map.size() );
-        System.out.println( moves.size() );
-
-        for( int i = 0; i < moves.size(); i++ ) System.out.println( moves.get( i ));
-
-        for( Object o : mapKeySet ) {
-
-            System.out.println( o );
-        }
-
         if( success == 0 ) return;
         if( success == 1 ) {
 
@@ -78,30 +66,26 @@ public class AI {
 
                 int chance = (int) ( map.get( moves.get( i ).board02).get( moves.get( i ).space ) );
 
-                int num1 = chance / moves.size();
+                int num1 = chance + chance / moves.size() * ( i + 1 );
 
-                Map<Integer, Integer> map2 = new TreeMap<Integer, Integer>();
+                if( num1 < 1 ) num1 = 1;
+                if( num1 > 1000 ) num1 = 1000;
 
-                map2.put( moves.get( i ).space, chance + chance / (moves.size() + 1) * ( i + 1 ) );
-
-                map.put( moves.get( i ).board02, map2 );
+                map.get( moves.get( i ).board02).put( moves.get( i ).space, num1 );
             }
         }
         if( success == -1 ) {
 
             for( int i = 0; i < moves.size(); i++ ) {
 
-                System.out.println( "test" );
-
                 int chance = (int) ( map.get( moves.get( i ).board02).get( moves.get( i ).space ) );
 
-                int num1 = chance / moves.size();
+                int num1 = chance - chance / moves.size() * ( i + 1 );
 
-                Map<Integer, Integer> map2 = new TreeMap<Integer, Integer>();
+                if( num1 < 1 ) num1 = 1;
+                if( num1 > 1000 ) num1 = 1000;
 
-                map2.put( moves.get( i ).space, chance - chance / (moves.size() + 1) * ( i + 1 ) );
-
-                map.put( moves.get( i ).board02, map2 );
+                map.get( moves.get( i ).board02).put( moves.get( i ).space, num1 );
             }
         }
 
@@ -117,7 +101,6 @@ public class AI {
             Map<Integer, Integer> map1 = new TreeMap<Integer, Integer>();
             for( int i = 0; i < 9; i++ ) map1.put( i, 500 );
 
-            System.out.println( board01 );
             map.put( new Board( board01 ), map1 );
 
             moves.add( new Move( new Board( board01 ), (int) ( Math.random() * 9 ) ) );
@@ -179,6 +162,7 @@ public class AI {
             list.remove( 0 );
         }
 
+        if( moves.size() == 0) return play( board05 );
         return runMove();
     }
 
@@ -189,15 +173,14 @@ public class AI {
         int num1 = move.space / 3;
         int num2 = move.space % 3;
 
-        Board b = move.board02;
-
         if( move.board02.board04[ num1 ][ num2 ].value != ' ' ) {
             map.get( move.board02).put( move.space, 0 );
-            play( move.board02);
+            moves.remove( moves.size() - 1 );
+            return play( move.board02);
         } else {
-            b = new Board( move.board02 );
+            Board b = new Board( move.board02 );
             b.board04[ num1 ][ num2 ].makeO();
+            return b;
         }
-        return b;
     }
 }

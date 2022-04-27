@@ -73,19 +73,19 @@ public class Game {
                 System.out.print('>');
                 String str = kb.nextLine();
 
-                if( str.equals( "1" ) ) {
+                if( str.equals( "7" ) ) {
 
                     if( isLegal( 1 ) ) {
                         board03.board04[ 0 ][ 0 ].makeX();
                         break;
                     } else q.add( "Space Taken" );
-                } else if( str.equals( "2" ) ) {
+                } else if( str.equals( "8" ) ) {
 
                     if( isLegal( 2 ) ) {
                         board03.board04[ 0 ][ 1 ].makeX();
                         break;
                     } else q.add( "Space Taken" );
-                } else if( str.equals( "3" ) ) {
+                } else if( str.equals( "9" ) ) {
 
                     if( isLegal( 3 ) ) {
                         board03.board04[ 0 ][ 2 ].makeX();
@@ -109,19 +109,19 @@ public class Game {
                         board03.board04[ 1 ][ 2 ].makeX();
                         break;
                     } else q.add( "Space Taken" );
-                } else if( str.equals( "7" ) ) {
+                } else if( str.equals( "1" ) ) {
 
                     if( isLegal( 7 ) ) {
                         board03.board04[ 2 ][ 0 ].makeX();
                         break;
                     } else q.add( "Space Taken" );
-                } else if( str.equals( "8" ) ) {
+                } else if( str.equals( "2" ) ) {
 
                     if( isLegal( 8 ) ) {
                         board03.board04[ 2 ][ 1 ].makeX();
                         break;
                     } else q.add( "Space Taken" );
-                } else if( str.equals( "9" ) ) {
+                } else if( str.equals( "3" ) ) {
 
                     if( isLegal( 9 ) ) {
                         board03.board04[ 2 ][ 2 ].makeX();
