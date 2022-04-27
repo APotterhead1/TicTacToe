@@ -9,7 +9,7 @@ public class Move {
 
     public Move(Board board02, int space ) {
 
-        this.board02 = board02;
+        this.board02 = new Board( board02 );
         this.space = space;
     }
 
